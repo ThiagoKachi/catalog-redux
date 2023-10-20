@@ -15,8 +15,8 @@ export function Header() {
             <img className="h-8 w-auto" src={reduxLogo} alt="Redux logo" />
           </Link>
         </div>
-        <h1 className="text-2xl text-zinc-800">Catalog Redux</h1>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <h1 className="hidden sm:flex text-2xl text-zinc-800">Catalog Redux</h1>
+        <div className="lg:flex lg:flex-1 lg:justify-end">
           <Link
             to="/cart"
             className="text-sm font-semibold leading-6 text-gray-900"
