@@ -7,21 +7,19 @@ import { Sizes } from './components/Sizes';
 import { useDetailsController } from './useDetailsController';
 
 export function ProductDetails() {
-  // Adicionar ao carrinho
-  // Habilitar botão de adicionar ao carrinho somente quando o usuário selecionar um tamanho
-  const { isLoading } = useAppSelector((state) => state.products);
+  const { isLoading, selectedSize } = useAppSelector((state) => state.products);
 
   const { productDetails } = useDetailsController();
 
-  function hasSizesAvailable() {
-    return productDetails?.sizes.some((size) => size.available === true);
-  }
+  const hasSizesAvailable = productDetails?.sizes.some(
+    (size) => size.available === true,
+  );
 
   return (
     <>
       <Header />
       {isLoading ? (
-        <div className="flex items-center justify-center mt-[25%]">
+        <div className="flex items-center justify-center mt-[15%]">
           <Spinner />
         </div>
       ) : (
@@ -66,7 +64,7 @@ export function ProductDetails() {
                         {productDetails?.installments}
                       </h4>
                     </div>
-                    {hasSizesAvailable() ? (
+                    {hasSizesAvailable ? (
                       <p className="text-green-600">Disponível</p>
                     ) : (
                       <p className="text-red-600">Indisponível</p>
@@ -75,14 +73,14 @@ export function ProductDetails() {
 
                   <Sizes sizes={productDetails?.sizes || []} />
 
-                  <Quantity disabled={hasSizesAvailable()!} />
+                  <Quantity disabled={hasSizesAvailable!} />
 
                   <div className="flex flex-wrap items-center -mx-4 ">
                     <div className="w-full px-4 mb-4 lg:mb-0">
                       <button
                         type="button"
                         className="flex items-center justify-center w-full p-4 text-purple-500 border border-purple-500 rounded-md hover:bg-purple-600 hover:border-purple-600 hover:text-gray-100 transition-colors disabled:bg-zinc-200 disabled:border-zinc-200 disabled:text-zinc-500 disabled:cursor-not-allowed"
-                        disabled={!hasSizesAvailable()}
+                        disabled={!hasSizesAvailable || !selectedSize}
                       >
                         Adicionar ao carrinho
                       </button>

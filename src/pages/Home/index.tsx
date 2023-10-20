@@ -11,7 +11,7 @@ export function Home() {
     <div>
       <Header />
       {isLoading ? (
-        <div className="flex items-center justify-center mt-[25%]">
+        <div className="flex items-center justify-center mt-[15%]">
           <Spinner />
         </div>
       ) : (
