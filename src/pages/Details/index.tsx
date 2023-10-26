@@ -7,9 +7,15 @@ import { Sizes } from './components/Sizes';
 import { useDetailsController } from './useDetailsController';
 
 export function ProductDetails() {
-  const { isLoading, selectedSize } = useAppSelector((state) => state.products);
+  const { productDetails, addProductToCart } = useDetailsController();
 
-  const { productDetails } = useDetailsController();
+  const { isLoading, selectedSize, quantity } = useAppSelector(
+    (state) => state.products,
+  );
+
+  const { isLoading: isLoadingAddToCart } = useAppSelector(
+    (state) => state.cart,
+  );
 
   const hasSizesAvailable = productDetails?.sizes.some(
     (size) => size.available === true,
@@ -80,9 +86,20 @@ export function ProductDetails() {
                       <button
                         type="button"
                         className="flex items-center justify-center w-full p-4 text-purple-500 border border-purple-500 rounded-md hover:bg-purple-600 hover:border-purple-600 hover:text-gray-100 transition-colors disabled:bg-zinc-200 disabled:border-zinc-200 disabled:text-zinc-500 disabled:cursor-not-allowed"
-                        disabled={!hasSizesAvailable || !selectedSize}
+                        disabled={
+                          !hasSizesAvailable ||
+                          !selectedSize ||
+                          isLoadingAddToCart
+                        }
+                        onClick={() =>
+                          addProductToCart(quantity, selectedSize!)
+                        }
                       >
-                        Adicionar ao carrinho
+                        {isLoadingAddToCart ? (
+                          <Spinner className="w-7 h-7 dark:text-gray-300" />
+                        ) : (
+                          'Adicionar ao carrinho'
+                        )}
                       </button>
                     </div>
                   </div>

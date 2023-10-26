@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 
 import reduxLogo from '../../assets/images/redux-logo.svg';
+import { useAppSelector } from '../../store';
 
 export function Header() {
+  const { cartProductsListQtd } = useAppSelector((state) => state.cart);
+
   return (
     <header className="bg-white">
       <nav
@@ -16,7 +19,7 @@ export function Header() {
           </Link>
         </div>
         <h1 className="hidden sm:flex text-2xl text-zinc-800">Catalog Redux</h1>
-        <div className="lg:flex lg:flex-1 lg:justify-end">
+        <div className="lg:flex lg:flex-1 lg:justify-end relative">
           <Link
             to="/cart"
             className="text-sm font-semibold leading-6 text-gray-900"
@@ -36,6 +39,11 @@ export function Header() {
               />
             </svg>
           </Link>
+          {cartProductsListQtd > 0 && (
+            <span className="absolute bg-purple-500 rounded-full w-4 h-4 left-[99%] top-[-20%] text-center text-[10px] text-white font-medium">
+              {cartProductsListQtd}
+            </span>
+          )}
         </div>
       </nav>
     </header>

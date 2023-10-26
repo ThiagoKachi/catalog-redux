@@ -51,7 +51,7 @@ export const productsSlice = createSlice({
     },
     reset: (state) => {
       state.productDetails = null;
-      state.quantity = 0;
+      state.quantity = 1;
       state.selectedSize = null;
     },
   },

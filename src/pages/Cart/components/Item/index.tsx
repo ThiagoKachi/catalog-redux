@@ -1,13 +1,8 @@
+import { Product } from '../../../../models/Product';
+import { formatCurrencyBRL } from '../../../../utils/formatCurrency';
+
 interface ItemProps {
-  item: {
-    id: number;
-    name: string;
-    description: string;
-    imgUrl: string;
-    originalPrice: number;
-    discountPrice: number;
-    subtotal: number;
-  };
+  item: Product;
 }
 
 export function Item({ item }: ItemProps) {
@@ -18,26 +13,28 @@ export function Item({ item }: ItemProps) {
           <div className="w-full px-4 mb-3 md:w-1/3">
             <div className="w-full h-96 md:h-24 md:w-24">
               <img
-                src={item.imgUrl}
+                src={item.image}
                 alt={item.name}
                 className="object-cover w-full h-full"
               />
             </div>
           </div>
-          <div className="w-2/3 px-4">
-            <h2 className="mb-2 text-xl font-bold text-zinc-700 max-w-xs whitespace-normal">
+          <div className="w-2/3 px-4 pl-0">
+            <h2 className="mb-2 text-md font-bold text-zinc-700 max-w-xs whitespace-normal ml-0 sm:ml-4">
               {item.name}
             </h2>
           </div>
         </div>
       </div>
       <div className="hidden px-4 lg:block lg:w-2/12">
-        <p className="text-lg font-bold text-purple-500">
-          R$ {item.discountPrice}
+        <p className="text-md font-bold text-purple-500">
+          R$ {item.regular_price}
         </p>
-        <span className="text-xs text-gray-500 line-through">
-          R$ {item.originalPrice}
-        </span>
+        {item.regular_price !== item.actual_price && (
+          <span className="text-xs text-gray-500 line-through">
+            R$ {item.actual_price}
+          </span>
+        )}
       </div>
       <div className="w-auto px-4 md:w-1/6 lg:w-2/12 ">
         <div className="inline-flex items-center px-4 font-semibold text-gray-500 border border-gray-200 rounded-md">
@@ -55,8 +52,8 @@ export function Item({ item }: ItemProps) {
           </button>
           <input
             type="number"
-            className="w-12 px-2 py-4 text-center border-0 rounded-md  bg-gray-50 md:text-right"
-            placeholder="1"
+            className="w-8 px-2 py-4 text-center border-0 rounded-md  bg-gray-50"
+            placeholder={String(item.selectedQuantity)}
           />
           <button type="button" className="py-2 hover:text-gray-700">
             <svg
@@ -73,7 +70,9 @@ export function Item({ item }: ItemProps) {
         </div>
       </div>
       <div className="w-auto px-4 text-right md:w-1/6 lg:w-2/12 ">
-        <p className="text-lg font-bold text-purple-500">R$ {item.subtotal}</p>
+        <p className="text-lg font-bold text-purple-500">
+          {formatCurrencyBRL(0)}
+        </p>
       </div>
     </div>
   );

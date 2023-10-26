@@ -23,6 +23,7 @@
       }
     },
     "rules": {
+      "react/require-default-props": "off",
       "no-param-reassign": "off",
       "prettier/prettier": "error",
       "react/react-in-jsx-scope": "off",

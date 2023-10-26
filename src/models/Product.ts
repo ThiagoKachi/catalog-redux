@@ -18,4 +18,6 @@ export interface Product {
   installments: string;
   image: string;
   sizes: Size[];
+  selectedQuantity?: number;
+  selectedSize?: string;
 }

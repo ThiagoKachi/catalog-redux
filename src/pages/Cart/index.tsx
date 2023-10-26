@@ -1,112 +1,13 @@
 import { Header } from '../../components/Header';
+import { Spinner } from '../../components/Spinner';
 
 import { Item } from './components/Item';
 import { Summary } from './components/Summary';
-
-const cartMock = [
-  {
-    id: 10300459,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 123458,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 107896,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 187,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 1654,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 12345,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 1444,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 1321,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 1231,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-  {
-    id: 112,
-    imgUrl: 'https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg',
-    name: 'Camera DSL',
-    description: 'Picture frame',
-    originalPrice: 199.99,
-    discountPrice: 99.99,
-    quantity: 1,
-    subtotal: 99.99,
-  },
-];
+import { useCartController } from './useCartController';
 
 export function Cart() {
+  const { isLoading, cartProductsList } = useCartController();
+
   return (
     <div className="h-screen overflow-hidden">
       <Header />
@@ -131,9 +32,15 @@ export function Cart() {
                   </div>
                 </div>
                 <div className="py-4 mb-8 border-t border-b border-gray-200">
-                  {cartMock.map((item) => (
-                    <Item key={item.id} item={item} />
-                  ))}
+                  {isLoading ? (
+                    <div className="mx-[50%] my-[25%]">
+                      <Spinner />
+                    </div>
+                  ) : (
+                    cartProductsList.map((item) => (
+                      <Item key={item.id} item={item} />
+                    ))
+                  )}
                 </div>
               </div>
 
