@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 import { CartCheckoutDetails } from '../../models/Cart';
 import { Product } from '../../models/Product';
 import { cartService } from '../../services/cartService';
+import { formatCurrencyFromAPI } from '../../utils/formatCurrency';
 
 interface CartState {
   cartProductsList: Product[];
@@ -15,8 +17,6 @@ const initialState: CartState = {
   cartProductsList: [],
   cartProductsListQtd: 0,
   checkoutDetails: {
-    subtotal: 0,
-    freight: 0,
     total: 0,
   },
   isLoading: false,
@@ -40,22 +40,87 @@ export const getAllProductsInCart = createAsyncThunk(
   },
 );
 
+export const removeProductFromCart = createAsyncThunk(
+  'cart/remove',
+  async (id: number) => {
+    const response = await cartService.remove(id);
+
+    return response.data;
+  },
+);
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
 
   reducers: {
     addToCart: (state, action) => {
+      const productAlreadyInCart = state.cartProductsList.find(
+        (item) => item.id === action.payload.id,
+      );
+
+      if (productAlreadyInCart) {
+        toast.error('Este produto já está no seu carrinho.');
+        return;
+      }
+
       state.cartProductsList.push(action.payload);
+    },
+
+    increment: (state, action) => {
+      const cartItem = state.cartProductsList.find(
+        (item) => item.id === action.payload,
+      );
+
+      if (cartItem) {
+        cartItem.selectedQuantity! += 1;
+      }
+
+      cartSlice.caseReducers.total(state);
+    },
+
+    decrement: (state, action) => {
+      const cartItem = state.cartProductsList.find(
+        (item) => item.id === action.payload,
+      );
+
+      if (cartItem) {
+        cartItem.selectedQuantity! -= 1;
+      }
+
+      cartSlice.caseReducers.total(state);
+    },
+
+    total: (state) => {
+      state.checkoutDetails.total = state.cartProductsList.reduce(
+        (acc, item) =>
+          acc +
+          item.selectedQuantity! * formatCurrencyFromAPI(item.actual_price),
+        0,
+      );
     },
   },
 
   extraReducers: (builder) => {
+    builder.addCase(removeProductFromCart.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(removeProductFromCart.fulfilled, (state) => {
+      state.isLoading = false;
+    });
+
     builder.addCase(saveInCart.pending, (state) => {
       state.isLoading = true;
     });
 
     builder.addCase(saveInCart.fulfilled, (state) => {
+      state.isLoading = false;
+      state.cartProductsListQtd = state.cartProductsList.length;
+      toast.success('Produto adicionado ao carrinho!');
+    });
+
+    builder.addCase(saveInCart.rejected, (state) => {
       state.isLoading = false;
     });
 
@@ -71,17 +136,9 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, increment, decrement, total } = cartSlice.actions;
 
 export const cart = cartSlice.reducer;
 
-// Sessão de produtos
-// Se for o mesmo ID, atualiza o produto no carrinho
-// Adicionar e remover quantidade de produtos no carrinho
-// Fazer a soma levando em consideração a quantidade
-// Botão de excluir produto do carrinho
-
-// Sessão de checkout
-// Calcular o subtotal e total
-
-// Refatorar componente Details (Colocar valores do redux dentro do controller)
+// - Modificar a selectedQuantity e ao clicar em finalizar compra, salvar no carrinho
+// Melhorar experiência quando for exlcuir item (não mostrar loading na tela inteira)

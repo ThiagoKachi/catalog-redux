@@ -1,25 +1,20 @@
 import { Header } from '../../components/Header';
 import { Spinner } from '../../components/Spinner';
-import { useAppSelector } from '../../store';
 
 import { Quantity } from './components/Quantity';
 import { Sizes } from './components/Sizes';
 import { useDetailsController } from './useDetailsController';
 
 export function ProductDetails() {
-  const { productDetails, addProductToCart } = useDetailsController();
-
-  const { isLoading, selectedSize, quantity } = useAppSelector(
-    (state) => state.products,
-  );
-
-  const { isLoading: isLoadingAddToCart } = useAppSelector(
-    (state) => state.cart,
-  );
-
-  const hasSizesAvailable = productDetails?.sizes.some(
-    (size) => size.available === true,
-  );
+  const {
+    productDetails,
+    addProductToCart,
+    isLoading,
+    hasSizesAvailable,
+    selectedSize,
+    isLoadingAddToCart,
+    quantity,
+  } = useDetailsController();
 
   return (
     <>
@@ -60,7 +55,7 @@ export function ProductDetails() {
                       {productDetails?.actual_price !==
                         productDetails?.regular_price && (
                         <span className="text-base font-normal text-zinc-400 line-through ml-2">
-                          {productDetails?.actual_price}
+                          {productDetails?.regular_price}
                         </span>
                       )}
                       <small className="block font-normal text-sm mt-2 text-zinc-500">

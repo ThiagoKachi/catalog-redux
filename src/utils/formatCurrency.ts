@@ -4,3 +4,10 @@ export function formatCurrencyBRL(value: number) {
     currency: 'BRL',
   }).format(value);
 }
+
+export function formatCurrencyFromAPI(value: string): number {
+  const cleanString = value.replace('R$', '').replace(',', '.');
+  const priceNumber = parseFloat(cleanString);
+
+  return priceNumber;
+}

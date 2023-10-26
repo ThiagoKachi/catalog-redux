@@ -14,12 +14,24 @@ export function useDetailsController() {
   const { id } = useParams<{ id: string }>();
   const { productDetails } = useAppSelector((state) => state.products);
 
+  const { isLoading, selectedSize, quantity } = useAppSelector(
+    (state) => state.products,
+  );
+
+  const { isLoading: isLoadingAddToCart } = useAppSelector(
+    (state) => state.cart,
+  );
+
+  const hasSizesAvailable = productDetails?.sizes.some(
+    (size) => size.available === true,
+  );
+
   const dispatch = useAppDispatch();
 
-  function addProductToCart(quantity: number, size: string) {
+  function addProductToCart(qtd: number, size: string) {
     const data = {
       ...productDetails,
-      selectedQuantity: quantity,
+      selectedQuantity: qtd,
       selectedSize: size,
     };
 
@@ -34,5 +46,13 @@ export function useDetailsController() {
     dispatch(getAllProductsInCart());
   }, [dispatch, id]);
 
-  return { productDetails, addProductToCart };
+  return {
+    productDetails,
+    addProductToCart,
+    isLoading,
+    selectedSize,
+    quantity,
+    isLoadingAddToCart,
+    hasSizesAvailable,
+  };
 }

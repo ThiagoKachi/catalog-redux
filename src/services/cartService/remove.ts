@@ -1,8 +1,8 @@
 import { Product } from '../../models/Product';
 import { httpClient } from '../httpClient';
 
-export async function getAll() {
-  const data = await httpClient.get<Product[]>('/cart');
+export async function remove(id: number) {
+  const data = await httpClient.delete<Product>(`/cart/${id}`);
 
   return data;
 }

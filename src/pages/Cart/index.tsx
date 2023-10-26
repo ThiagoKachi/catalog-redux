@@ -6,10 +6,18 @@ import { Summary } from './components/Summary';
 import { useCartController } from './useCartController';
 
 export function Cart() {
-  const { isLoading, cartProductsList } = useCartController();
+  const {
+    isLoading,
+    cartProductsList,
+    handleIncrement,
+    handleDecrement,
+    itemTotalPrice,
+    handleRemoveProduct,
+    cartTotal,
+  } = useCartController();
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen">
       <Header />
       <section className="flex pt-8 bg-zinc-100 lg:h-screen">
         <div className="justify-center flex-1 px-4 py-6 mx-auto max-w-7xl lg:py-4 md:px-6">
@@ -22,7 +30,7 @@ export function Cart() {
                     <h2 className="font-bold text-zinc-500">Produto</h2>
                   </div>
                   <div className="hidden px-4 lg:block lg:w-2/12">
-                    <h2 className="font-bold text-zinc-500">Preço</h2>
+                    <h2 className="font-bold text-zinc-500">Preço un.</h2>
                   </div>
                   <div className="hidden md:block px-4 md:w-1/6 lg:w-2/12 ">
                     <h2 className="font-bold text-zinc-500">Qtd.</h2>
@@ -38,13 +46,20 @@ export function Cart() {
                     </div>
                   ) : (
                     cartProductsList.map((item) => (
-                      <Item key={item.id} item={item} />
+                      <Item
+                        key={item.id}
+                        item={item}
+                        onIncrement={handleIncrement}
+                        onDecrement={handleDecrement}
+                        itemTotalPrice={itemTotalPrice}
+                        onRemoveProduct={handleRemoveProduct}
+                      />
                     ))
                   )}
                 </div>
               </div>
 
-              <Summary />
+              <Summary cartTotal={cartTotal} />
             </div>
           </div>
         </div>
