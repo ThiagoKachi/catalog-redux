@@ -99,15 +99,23 @@ export const cartSlice = createSlice({
         0,
       );
     },
+
+    finishCart: (state) => {
+      state.cartProductsList.forEach((item) => cartService.remove(item.id));
+      state.cartProductsList = [];
+      state.cartProductsListQtd = 0;
+      state.checkoutDetails.total = 0;
+      toast.success('Compra finalizada com sucesso!');
+    },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(removeProductFromCart.pending, (state) => {
-      state.isLoading = true;
-    });
-
-    builder.addCase(removeProductFromCart.fulfilled, (state) => {
-      state.isLoading = false;
+    builder.addCase(removeProductFromCart.fulfilled, (state, action) => {
+      state.cartProductsList = state.cartProductsList.filter(
+        (item) => item.id !== action.meta.arg,
+      );
+      state.cartProductsListQtd = state.cartProductsList.length;
+      cartSlice.caseReducers.total(state);
     });
 
     builder.addCase(saveInCart.pending, (state) => {
@@ -136,9 +144,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, increment, decrement, total } = cartSlice.actions;
+export const { addToCart, increment, decrement, total, finishCart } =
+  cartSlice.actions;
 
 export const cart = cartSlice.reducer;
-
-// - Modificar a selectedQuantity e ao clicar em finalizar compra, salvar no carrinho
-// Melhorar experiência quando for exlcuir item (não mostrar loading na tela inteira)

@@ -2,9 +2,15 @@ import { formatCurrencyBRL } from '../../../../utils/formatCurrency';
 
 interface SummaryProps {
   cartTotal: number;
+  cartProductsListQtd: number;
+  onFinishCart: () => void;
 }
 
-export function Summary({ cartTotal }: SummaryProps) {
+export function Summary({
+  cartTotal,
+  cartProductsListQtd,
+  onFinishCart,
+}: SummaryProps) {
   return (
     <div className="w-full px-0 mb-10 xl:w-4/12 xl:px-4 xl:mb-0">
       <div className="p-6 rounded-sm border border-purple-100 bg-purple-50 md:p-8">
@@ -30,7 +36,9 @@ export function Summary({ cartTotal }: SummaryProps) {
         <div className="flex items-center justify-between ">
           <button
             type="button"
-            className="block w-full py-4 font-bold text-center text-gray-100 uppercase bg-purple-500 rounded-md hover:bg-purple-600 transition-colors"
+            className="block w-full py-4 font-bold text-center text-gray-100 uppercase bg-purple-500 rounded-md hover:bg-purple-600 transition-colors disabled:cursor-default disabled:bg-purple-300"
+            disabled={cartProductsListQtd === 0}
+            onClick={onFinishCart}
           >
             Finalizar Compra
           </button>

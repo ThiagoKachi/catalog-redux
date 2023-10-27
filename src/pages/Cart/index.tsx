@@ -9,11 +9,13 @@ export function Cart() {
   const {
     isLoading,
     cartProductsList,
+    cartProductsListQtd,
     handleIncrement,
     handleDecrement,
     itemTotalPrice,
     handleRemoveProduct,
     cartTotal,
+    handleFinishCart,
   } = useCartController();
 
   return (
@@ -59,7 +61,11 @@ export function Cart() {
                 </div>
               </div>
 
-              <Summary cartTotal={cartTotal} />
+              <Summary
+                cartTotal={cartTotal}
+                cartProductsListQtd={cartProductsListQtd}
+                onFinishCart={handleFinishCart}
+              />
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import {
   decrement,
+  finishCart,
   getAllProductsInCart,
   increment,
   removeProductFromCart,
@@ -30,7 +31,10 @@ export function useCartController() {
 
   async function handleRemoveProduct(id: number) {
     await dispatch(removeProductFromCart(id));
-    dispatch(getAllProductsInCart());
+  }
+
+  async function handleFinishCart() {
+    await dispatch(finishCart());
   }
 
   useEffect(() => {
@@ -40,7 +44,7 @@ export function useCartController() {
     }
 
     getCartDetails();
-  }, [dispatch]);
+  }, []);
 
   return {
     isLoading,
@@ -51,5 +55,6 @@ export function useCartController() {
     itemTotalPrice,
     handleRemoveProduct,
     cartTotal: checkoutDetails.total,
+    handleFinishCart,
   };
 }

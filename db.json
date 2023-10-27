@@ -784,133 +784,47 @@
   ],
   "cart": [
     {
-      "id": 6,
-      "name": "CAMISA SUEDE SPAN",
-      "style": "20002584",
-      "code_color": "20002584_027",
-      "color_slug": "burgundy",
-      "color": "BURGUNDY",
-      "on_sale": false,
-      "regular_price": "R$ 189,90",
-      "actual_price": "R$ 189,90",
-      "discount_percentage": "",
-      "installments": "3x R$ 63,30",
-      "image": "https://d3l7rqep7l31az.cloudfront.net/images/products/20002584_035_catalog_1.jpg?1459947139",
-      "sizes": [
-        {
-          "available": false,
-          "size": "PP",
-          "sku": "5755_1000070_0_PP"
-        },
-        {
-          "available": true,
-          "size": "P",
-          "sku": "5755_1000070_0_P"
-        },
-        {
-          "available": true,
-          "size": "M",
-          "sku": "5755_1000070_0_M"
-        },
-        {
-          "available": false,
-          "size": "G",
-          "sku": "5755_1000070_0_G"
-        },
-        {
-          "available": false,
-          "size": "GG",
-          "sku": "5755_1000070_0_GG"
-        }
-      ],
-      "selectedQuantity": 2,
-      "selectedSize": "M"
-    },
-    {
-      "id": 5,
-      "name": "T-SHIRT LEATHER DULL",
-      "style": "20002602",
-      "code_color": "20002602_027",
-      "color_slug": "marinho",
-      "color": "MARINHO",
-      "on_sale": true,
-      "regular_price": "R$ 139,90",
-      "actual_price": "R$ 119,90",
-      "discount_percentage": "12%",
-      "installments": "3x R$ 39,97",
-      "image": "https://http2.mlstatic.com/D_NQ_NP_884952-MLB70080266695_062023-O.webp",
-      "sizes": [
-        {
-          "available": true,
-          "size": "PP",
-          "sku": "5793_1000032_0_PP"
-        },
-        {
-          "available": true,
-          "size": "P",
-          "sku": "5793_1000032_0_P"
-        },
-        {
-          "available": true,
-          "size": "M",
-          "sku": "5793_1000032_0_M"
-        },
-        {
-          "available": false,
-          "size": "G",
-          "sku": "5793_1000032_0_G"
-        },
-        {
-          "available": false,
-          "size": "GG",
-          "sku": "5793_1000032_0_GG"
-        }
-      ],
-      "selectedQuantity": 1,
-      "selectedSize": "M"
-    },
-    {
-      "id": 8,
+      "id": 2,
       "name": "REGATA ALCINHA FOLK",
       "style": "20002570",
-      "code_color": "20002570_612",
-      "color_slug": "off-white",
-      "color": "OFF WHITE",
+      "code_color": "20002570_614",
+      "color_slug": "preto",
+      "color": "PRETO",
       "on_sale": false,
       "regular_price": "R$ 99,90",
       "actual_price": "R$ 99,90",
       "discount_percentage": "",
       "installments": "3x R$ 33,30",
-      "image": "https://d3l7rqep7l31az.cloudfront.net/images/products/20002570_029_catalog_1.jpg?1459948578",
+      "image": "https://d3l7rqep7l31az.cloudfront.net/images/products/20002570_002_catalog_1.jpg?1459948578",
       "sizes": [
         {
           "available": true,
           "size": "PP",
-          "sku": "5723_1000058_0_PP"
+          "sku": "5723_40130843_0_PP"
         },
         {
-          "available": false,
+          "available": true,
           "size": "P",
-          "sku": "5723_1000058_0_P"
+          "sku": "5723_40130843_0_P"
         },
         {
           "available": true,
           "size": "M",
-          "sku": "5723_1000058_0_M"
+          "sku": "5723_40130843_0_M"
         },
         {
           "available": true,
           "size": "G",
-          "sku": "5723_1000058_0_G"
+          "sku": "5723_40130843_0_G"
         },
         {
           "available": true,
           "size": "GG",
-          "sku": "5723_1000058_0_GG"
+          "sku": "5723_40130843_0_GG"
         }
       ],
-      "selectedQuantity": 1,
-      "selectedSize": "M"
+      "selectedQuantity": 2,
+      "selectedSize": "P"
     }
   ]
 }
